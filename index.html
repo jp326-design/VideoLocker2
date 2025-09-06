@@ -1,0 +1,36 @@
+<html>
+<body>
+<input type="file" id="videoInput" accept="video/*">
+  
+  <!-- Video Preview -->
+  <video id="videoPreview" controls width="500"></video>
+  
+  <script>document.getElementById('videoInput').addEventListener('change', function(event) {
+  const file = event.target.files[0];
+  if (file) {
+    const videoPreview = document.getElementById('videoPreview');
+    videoPreview.src = URL.createObjectURL(file);
+    videoPreview.load();
+    videoPreview.play();
+  }
+});
+const express = require('express');
+const multer = require('multer');
+const app = express();
+const upload = multer({ dest: 'uploads/' });
+
+app.post('/upload', upload.single('video'), (req, res) => {
+  res.send('Video uploaded successfully!');
+});
+
+app.listen(3000, () => console.log('Server running on http://localhost:3000'));
+</script>
+<form action="/upload" method="POST" enctype="multipart/form-data">
+  <input type="file" name="video" accept="video/*">
+  <button type="submit">Upload Video</button>
+</form>
+This setup allows users to preview their videos and upload them to your server. For more advanced features like recording videos directly on the website, you can use the MediaRecorder API in JavaScript. Let me know if you'd like guidance on that! 😊
+
+
+</body>
+</html>
